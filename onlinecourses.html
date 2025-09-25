@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Classes - Marvelous Enough</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
+        :root {
+            --color-primary-text: #F3C403;
+            --color-secondary-text: #FFFFFF;
+            --color-dark-background: #000000;
+            --color-light-background: #1A1A1A;
+            --color-border: #333333;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-dark-background);
+            color: var(--color-secondary-text);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Anton', sans-serif;
+        }
+        .text-anton {
+            font-family: 'Anton', sans-serif;
+        }
+        .text-inter {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1A1A1A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .glow-animation {
+            animation: text-glow 4s ease-in-out infinite;
+        }
+        @keyframes text-glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
+        }
+        .course-card:hover .card-overlay {
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="min-h-screen flex flex-col">
+
+        <header class="w-full bg-black py-4 px-6 md:px-12 fixed top-0 z-50 border-b border-gray-800">
+            <nav class="flex justify-between items-center max-w-7xl mx-auto">
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="relative text-xs uppercase text-gray-400 hover:text-white group">About</a>
+                    <a href="#" class="relative text-xs uppercase text-gray-400 hover:text-white group">Exhibition</a>
+                </div>
+                <div class="text-xl font-bold text-white text-anton tracking-wide">SHANI</div>
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="relative text-xs uppercase text-gray-400 hover:text-white group">Blog</a>
+                    <a href="#" class="relative text-xs uppercase text-gray-400 hover:text-white group">Contact</a>
+                    <a href="#" class="relative text-xs uppercase text-yellow-400 hover:text-yellow-300 group">Courses</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow pt-[5rem] container mx-auto px-4 py-8 md:py-16">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl text-anton text-yellow-400 mb-2 glow-animation">Master Your Craft</h1>
+                <p class="text-gray-400 max-w-xl mx-auto">
+                    Explore our curated selection of online classes designed to help you create, express, and elevate your artistic vision.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <a href="course-details.html" class="course-card relative block overflow-hidden rounded-xl shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <img src="https://via.placeholder.com/600x800" alt="Course 1" class="w-full h-80 object-cover brightness-75 transition-all duration-300">
+                    <div class="card-overlay absolute inset-0 bg-black opacity-40 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white w-full">
+                        <h3 class="text-2xl font-bold text-anton">Digital Art Mastery</h3>
+                        <p class="text-gray-300 text-sm mt-1">Instructor: Alex Roe</p>
+                        <p class="text-yellow-400 text-lg font-semibold mt-2">$99</p>
+                    </div>
+                </a>
+
+                <a href="course-details.html" class="course-card relative block overflow-hidden rounded-xl shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <img src="https://via.placeholder.com/600x800" alt="Course 2" class="w-full h-80 object-cover brightness-75 transition-all duration-300">
+                    <div class="card-overlay absolute inset-0 bg-black opacity-40 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white w-full">
+                        <h3 class="text-2xl font-bold text-anton">Abstract Painting</h3>
+                        <p class="text-gray-300 text-sm mt-1">Instructor: Jane Doe</p>
+                        <p class="text-yellow-400 text-lg font-semibold mt-2">$149</p>
+                    </div>
+                </a>
+
+                <a href="course-details.html" class="course-card relative block overflow-hidden rounded-xl shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <img src="https://via.placeholder.com/600x800" alt="Course 3" class="w-full h-80 object-cover brightness-75 transition-all duration-300">
+                    <div class="card-overlay absolute inset-0 bg-black opacity-40 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white w-full">
+                        <h3 class="text-2xl font-bold text-anton">Creative Photography</h3>
+                        <p class="text-gray-300 text-sm mt-1">Instructor: Chris Miller</p>
+                        <p class="text-yellow-400 text-lg font-semibold mt-2">$119</p>
+                    </div>
+                </a>
+            </div>
+        </main>
+
+        <footer class="w-full bg-black py-8 px-6 md:px-12 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 space-y-4 md:space-y-0">
+                <p>&copy; 2024 Marvelous Enough. All Rights Reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
