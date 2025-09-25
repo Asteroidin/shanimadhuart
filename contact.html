@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Marvelous Enough</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
+        :root {
+            --color-primary-text: #F3C403;
+            --color-secondary-text: #FFFFFF;
+            --color-dark-background: #000000;
+            --color-light-background: #1A1A1A;
+            --color-border: #333333;
+            --color-accent-blue: #00BFFF;
+            --color-accent-green: #2ecc71;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-dark-background);
+            color: var(--color-secondary-text);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Anton', sans-serif;
+        }
+        .text-anton {
+            font-family: 'Anton', sans-serif;
+        }
+        .text-inter {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1A1A1A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Glass text effect */
+        .glass-text {
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+        
+        /* Scroll animation classes */
+        .scroll-fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .scroll-scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .scroll-slide-left {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .scroll-slide-right {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        /* This class is added by JavaScript when element is in view */
+        .visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        .delay-400 {
+            transition-delay: 400ms;
+        }
+
+        .delay-500 {
+            transition-delay: 500ms;
+        }
+
+        /* New Hover and Loop Animations */
+        .group:hover .group-hover-effect {
+            transform: translateY(-0.5rem);
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes text-glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.1); }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 0 25px rgba(255, 255, 255, 0.2); }
+        }
+
+        .glow-animation {
+            animation: text-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) skewX(-20deg); }
+            100% { transform: translateX(200%) skewX(-20deg); }
+        }
+
+        .card-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translateX(-100%) skewX(-20deg);
+            transition: transform 0.5s ease;
+        }
+
+        .card-shine:hover::after {
+            animation: shine 1.5s ease-in-out;
+        }
+
+        /* Floating card animations */
+        @keyframes float-animation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating-card {
+            animation: float-animation 6s ease-in-out infinite;
+            position: absolute; /* Allows precise positioning */
+            z-index: 10; /* Ensures they are above the background but below the form */
+            filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.2)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease-in-out;
+        }
+        .floating-card:hover {
+            transform: translateY(-15px) scale(1.05); /* Enhance hover effect */
+        }
+        .floating-card-delay-1 { animation-delay: 0s; }
+        .floating-card-delay-2 { animation-delay: 1.5s; }
+        .floating-card-delay-3 { animation-delay: 3s; }
+        .floating-card-delay-4 { animation-delay: 4.5s; }
+        .floating-card-delay-5 { animation-delay: 2s; }
+        .floating-card-delay-6 { animation-delay: 4s; }
+        .floating-card-delay-7 { animation-delay: 1s; }
+        .floating-card-delay-8 { animation-delay: 3.5s; }
+
+        /* Overlay images with transparency and a blur effect */
+        .overlay-card {
+            opacity: 0.4;
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: 30; /* Ensures it is above the form content */
+            filter: blur(5px);
+            backdrop-filter: blur(5px); /* For supported browsers */
+        }
+
+        /* Frosted Glass Look for the Form */
+        .frosted-glass {
+            background-color: rgba(26, 26, 26, 0.6); /* Semi-transparent background */
+            backdrop-filter: blur(20px); /* The frosted glass effect */
+            -webkit-backdrop-filter: blur(20px); /* For Safari */
+        }
+        
+        /* Ensure main content is visible behind fixed header */
+        main {
+            padding-top: 5rem; /* Adjust this value based on your header's height */
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="min-h-screen flex flex-col">
+        
+        <header class="w-full bg-black py-4 px-6 md:px-12 fixed top-0 z-50">
+            <nav class="flex justify-between items-center max-w-7xl mx-auto">
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                        About
+                        <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                        Exhibition
+                        <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+                <div class="text-xl font-bold text-white text-anton tracking-wide">
+                    SHANI
+                </div>
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                        Blog
+                        <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                        Contact
+                        <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    
+                    <button id="music-button" class="relative text-white w-8 h-8 rounded-full hover:text-yellow-400 focus:outline-none transition-colors duration-200 overflow-hidden flex items-center justify-center">
+                        <img id="visualizer-gif" src="img/giphy.gif" alt="Audio Visualizer" class="absolute w-full h-full object-cover transition-opacity duration-300 opacity-0 z-0">
+                        
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute w-5 h-5 z-10 transition-opacity duration-300">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 20.32c-1.25.687-2.779-.235-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute w-5 h-5 z-10 transition-opacity duration-300 opacity-0">
+                            <path fill-rule="evenodd" d="M2.25 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-.75.75H3a.75.75 0 0 1-.75-.75v-3.5ZM9 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-.75.75H9.75a.75.75 0 0 1-.75-.75v-3.5ZM15.75 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1-.75-.75v-3.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </header>
+        <audio id="background-music" loop>
+            <source src="song/bgsong.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <main class="flex-grow pt-[5rem]">
+            <section id="contact-page" class="bg-black py-16 md:py-24 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-20">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl md:text-5xl text-anton text-yellow-400 mb-4 glow-animation scroll-fade-in">Let's Talk</h1>
+                        <p class="text-gray-300 max-w-lg mx-auto leading-relaxed scroll-fade-in delay-100 mb-8">
+                            Whether you have a question about my work, want to commission a piece, or just want to say hello, I would love to hear from you.
+                        </p>
+                        <ul class="space-y-4 text-gray-300 w-full inline-block mb-12 scroll-fade-in delay-200">
+                            <li class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.8 7.8a2 2 0 002.4 0L21 8" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2z" />
+                                </svg>
+                                <a href="mailto:your.email@example.com" class="hover:text-white transition-colors text-sm">your.email@example.com</a>
+                            </li>
+                            <li class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.99 1.12l-.74 4.38a1 1 0 01-.78 1.05l-2.73.5a1 1 0 00-.77.77l.5 2.73a1 1 0 001.05.78l4.38-.74a1 1 0 011.12.99V19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-1a2 2 0 00-2-2H5a2 2 0 01-2-2v-2" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l-2.5-2.5m0 0l-1 1-1-1m1-1l1-1" />
+                                </svg>
+                                <a href="tel:+1234567890" class="hover:text-white transition-colors text-sm">+1234567890</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="relative max-w-2xl mx-auto p-8 md:p-12 rounded-lg shadow-lg border border-gray-800 scroll-fade-in delay-300 card-shine z-20 frosted-glass">
+                    <h2 class="text-3xl text-anton text-yellow-400 mb-6 text-center">Send a Message</h2>
+                    <form action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
+                            <input type="text" id="name" name="name" class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors" placeholder="your.email@example.com" required>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-400 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors" placeholder="Question about commissions" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors" placeholder="Write your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-yellow-400 text-black py-3 px-8 rounded-full font-bold uppercase tracking-wider hover:bg-yellow-300 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="floating-card floating-card-delay-1 w-24 h-32 md:w-48 md:h-64 rounded-lg overflow-hidden card-shine scroll-scale-in" style="top: 10%; left: 5%;">
+                    <img src="img/img1.jpeg" alt="Artwork 1" class="w-full h-full object-cover">
+                </div>
+                <div class="floating-card floating-card-delay-2 w-24 h-32 md:w-32 md:h-48 rounded-lg overflow-hidden card-shine scroll-scale-in" style="top: 35%; right: 5%;">
+                    <img src="img/img2.jpeg" alt="Artwork 2" class="w-full h-full object-cover">
+                </div>
+                <div class="floating-card floating-card-delay-3 w-32 h-24 md:w-40 md:h-32 rounded-lg overflow-hidden card-shine scroll-scale-in" style="bottom: 10%; left: 15%;">
+                    <img src="img/img3.jpeg" alt="Artwork 3" class="w-full h-full object-cover">
+                </div>
+                <div class="floating-card floating-card-delay-4 w-24 h-32 md:w-32 md:h-40 rounded-lg overflow-hidden card-shine scroll-scale-in" style="bottom: 5%; right: 10%;">
+                    <img src="img/img4.jpeg" alt="Artwork 4" class="w-full h-full object-cover">
+                </div>
+
+                <div class="floating-card floating-card-delay-5 w-24 h-32 md:w-48 md:h-32 rounded-lg overflow-hidden card-shine scroll-scale-in overlay-card" style="top: 30%; left: 20%;">
+                    <img src="img/img5.jpeg" alt="Artwork 5" class="w-full h-full object-cover">
+                </div>
+                <div class="floating-card floating-card-delay-6 w-24 h-32 md:w-32 md:h-40 rounded-lg overflow-hidden card-shine scroll-scale-in overlay-card" style="bottom: 25%; right: 20%;">
+                    <img src="img/img6.jpeg" alt="Artwork 6" class="w-full h-full object-cover">
+                </div>
+                 <div class="floating-card floating-card-delay-7 w-20 h-28 md:w-36 md:h-44 rounded-lg overflow-hidden card-shine scroll-scale-in overlay-card" style="top: 25%; right: 10%;">
+                    <img src="img/img7.jpeg" alt="Artwork 7" class="w-full h-full object-cover">
+                </div>
+                <div class="floating-card floating-card-delay-8 w-28 h-20 md:w-44 md:h-32 rounded-lg overflow-hidden card-shine scroll-scale-in overlay-card" style="bottom: 15%; left: 20%;">
+                    <img src="img/img8.jpeg" alt="Artwork 8" class="w-full h-full object-cover">
+                </div>
+
+            </section>
+        </main>
+        
+        <footer class="w-full bg-black py-8 px-6 md:px-12 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 space-y-4 md:space-y-0">
+                <p>&copy; 2024 Marvelous Enough. All Rights Reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white focus:outline-none focus:ring-2 focus:ring-yellow-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-white focus:outline-none focus:ring-2 focus:ring-yellow-400">Terms of Service</a>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-400">Made with</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-red-500">
+                        <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 9.192c0-1.488.654-2.933 1.824-4.024 1.17-.993 2.75-1.543 4.36-1.543 1.152 0 2.323.386 3.296 1.188.346.276.683.58.995.908.313-.328.65-.632.996-.908 1.054-.842 2.063-1.188 3.295-1.188 1.609 0 3.19.55 4.359 1.543 1.171 1.091 1.825 2.536 1.825 4.024 0 2.982-2.438 6.178-4.882 8.05-.902.7-1.832 1.36-2.75 1.933-.157.1-.31.195-.453.28-.012.007-.024.015-.037.022-1.29 1.405-2.395 1.517-2.454 1.554-.018.01-.035.027-.057.042A2.25 2.25 0 0 1 12 21.75c-.233 0-.465-.097-.622-.257Z" />
+                    </svg>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        const music = document.getElementById('background-music');
+        const musicButton = document.getElementById('music-button');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const visualizerGif = document.getElementById('visualizer-gif');
+
+        const toggleIcons = () => {
+            if (music.paused) {
+                playIcon.classList.remove('opacity-0');
+                pauseIcon.classList.add('opacity-0');
+                visualizerGif.classList.add('opacity-0');
+            } else {
+                playIcon.classList.add('opacity-0');
+                pauseIcon.classList.remove('opacity-0');
+                visualizerGif.classList.remove('opacity-0');
+            }
+        };
+
+        musicButton.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        });
+
+        music.addEventListener('play', toggleIcons);
+        music.addEventListener('pause', toggleIcons);
+
+        document.addEventListener('DOMContentLoaded', toggleIcons);
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll(
+                '.scroll-fade-in, .scroll-scale-in, .scroll-slide-left, .scroll-slide-right'
+            );
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+
+</body>
+</html>
