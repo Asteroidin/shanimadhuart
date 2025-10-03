@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - Marvelous Enough</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
+        :root {
+            --color-primary-text: #F3C403;
+            --color-secondary-text: #FFFFFF;
+            --color-dark-background: #000000;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-dark-background);
+            color: var(--color-secondary-text);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Anton', sans-serif;
+        }
+        .card-shine {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+        }
+        .card-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translateX(-100%) skewX(-20deg);
+            transition: transform 0.5s ease;
+        }
+        .card-shine:hover::after {
+            animation: shine 1.5s ease-in-out;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) skewX(-20deg); }
+            100% { transform: translateX(200%) skewX(-20deg); }
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="min-h-screen flex flex-col">
+        
+        <header class="w-full bg-black py-4 px-6 md:px-12 sticky top-0 z-50 border-b border-gray-800">
+            <nav class="flex justify-between items-center max-w-7xl mx-auto">
+                <div class="text-xl font-bold text-white text-anton tracking-wide">
+                    SHANI
+                </div>
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                        Home
+                        <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#" class="relative text-xs uppercase text-yellow-400 hover:text-white focus:outline-none group">
+                        Products
+                        <span class="absolute left-0 bottom-0 h-[1px] w-full bg-yellow-400 transition-all duration-300"></span>
+                    </a>
+                    <a href="#contact-now" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                        Contact
+                        <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow pt-16">
+            <section id="all-products" class="py-16 md:py-24">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <h1 class="text-5xl md:text-7xl text-anton text-yellow-400 mb-12 border-b border-gray-800 pb-4">All Marvelous Art Prints & Products</h1>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                        
+                        <a href="product-detail.html" class="block bg-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-800 group hover:scale-[1.03] transition-transform duration-300 card-shine">
+                            <div class="h-56 overflow-hidden">
+                                <img src="img/img2.jpeg" alt="Abstract Waves Print" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="text-md font-semibold text-white mb-1 group-hover:text-yellow-400 transition-colors">Abstract Waves Print</h3>
+                                <p class="text-xs text-gray-400">Limited Edition Canvas</p>
+                                <p class="text-xl font-bold text-yellow-400 mt-2">£79.99</p>
+                                <button class="mt-3 w-full bg-yellow-400 text-black text-sm font-bold py-2 rounded-full hover:bg-yellow-300 transition-colors">View Details</button>
+                            </div>
+                        </a>
+                        
+                        <a href="product-detail.html" class="block bg-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-800 group hover:scale-[1.03] transition-transform duration-300 card-shine">
+                            <div class="h-56 overflow-hidden">
+                                <img src="img/img5.jpeg" alt="Textured Sun Coaster" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="text-md font-semibold text-white mb-1 group-hover:text-yellow-400 transition-colors">Textured Sun Coaster</h3>
+                                <p class="text-xs text-gray-400">Hand-made Resin</p>
+                                <p class="text-xl font-bold text-yellow-400 mt-2">£19.99</p>
+                                <button class="mt-3 w-full bg-yellow-400 text-black text-sm font-bold py-2 rounded-full hover:bg-yellow-300 transition-colors">View Details</button>
+                            </div>
+                        </a>
+
+                        <a href="product-detail.html" class="block bg-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-800 group hover:scale-[1.03] transition-transform duration-300 card-shine">
+                            <div class="h-56 overflow-hidden">
+                                <img src="img/img7.jpeg" alt="Shattered Mirror Print" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="text-md font-semibold text-white mb-1 group-hover:text-yellow-400 transition-colors">Shattered Mirror Print</h3>
+                                <p class="text-xs text-gray-400">Framed Digital Art</p>
+                                <p class="text-xl font-bold text-yellow-400 mt-2">£49.99</p>
+                                <button class="mt-3 w-full bg-yellow-400 text-black text-sm font-bold py-2 rounded-full hover:bg-yellow-300 transition-colors">View Details</button>
+                            </div>
+                        </a>
+                        
+                        <a href="product-detail.html" class="block bg-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-800 group hover:scale-[1.03] transition-transform duration-300 card-shine">
+                            <div class="h-56 overflow-hidden">
+                                <img src="img/img3.jpeg" alt="Blue Depths Mug" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="text-md font-semibold text-white mb-1 group-hover:text-yellow-400 transition-colors">Blue Depths Mug</h3>
+                                <p class="text-xs text-gray-400">Ceramic Collectible</p>
+                                <p class="text-xl font-bold text-yellow-400 mt-2">£24.99</p>
+                                <button class="mt-3 w-full bg-yellow-400 text-black text-sm font-bold py-2 rounded-full hover:bg-yellow-300 transition-colors">View Details</button>
+                            </div>
+                        </a>
+
+                        <a href="product-detail.html" class="block bg-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-800 group hover:scale-[1.03] transition-transform duration-300 card-shine">
+                            <div class="h-56 overflow-hidden">
+                                <img src="img/img4.jpeg" alt="Abstract Blue Globe" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="text-md font-semibold text-white mb-1 group-hover:text-yellow-400 transition-colors">Abstract Blue Globe</h3>
+                                <p class="text-xs text-gray-400">Archival Paper Print</p>
+                                <p class="text-xl font-bold text-yellow-400 mt-2">£129.99</p>
+                                <button class="mt-3 w-full bg-yellow-400 text-black text-sm font-bold py-2 rounded-full hover:bg-yellow-300 transition-colors">View Details</button>
+                            </div>
+                        </a>
+                        
+                        </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="w-full bg-black py-8 px-6 md:px-12 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 space-y-4 md:space-y-0">
+                <p>&copy; 2024 Marvelous Enough. All Rights Reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white focus:outline-none focus:ring-2 focus:ring-yellow-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-white focus:outline-none focus:ring-2 focus:ring-yellow-400">Terms of Service</a>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-400">Made with</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-red-500">
+                        <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 9.192c0-1.488.654-2.933 1.824-4.024 1.17-.993 2.75-1.543 4.36-1.543 1.152 0 2.323.386 3.296 1.188.346.276.683.58.995.908.313-.328.65-.632.996-.908 1.054-.842 2.063-1.188 3.295-1.188 1.609 0 3.19.55 4.359 1.543 1.171 1.091 1.825 2.536 1.825 4.024 0 2.982-2.438 6.178-4.882 8.05-.902.7-1.832 1.36-2.75 1.933-.157.1-.31.195-.453.28-.012.007-.024.015-.037.022-1.29 1.405-2.395 1.517-2.454 1.554-.018.01-.035.027-.057.042A2.25 2.25 0 0 1 12 21.75c-.233 0-.465-.097-.622-.257Z" />
+                    </svg>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

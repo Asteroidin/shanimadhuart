@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvelous Enough</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
+        :root {
+            --color-primary-text: #F3C403;
+            --color-secondary-text: #FFFFFF;
+            --color-dark-background: #000000;
+            --color-light-background: #1A1A1A;
+            --color-border: #333333;
+            --color-accent-blue: #00BFFF;
+            --color-accent-green: #2ecc71;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-dark-background);
+            color: var(--color-secondary-text);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Anton', sans-serif;
+        }
+        .text-anton {
+            font-family: 'Anton', sans-serif;
+        }
+        .text-inter {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1A1A1A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Glass text effect */
+        .glass-text {
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+        
+        /* Scroll animation classes */
+        .scroll-fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .scroll-scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .scroll-slide-left {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .scroll-slide-right {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        /* This class is added by JavaScript when element is in view */
+        .visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        .delay-400 {
+            transition-delay: 400ms;
+        }
+
+        .delay-500 {
+            transition-delay: 500ms;
+        }
+
+        /* New Hover and Loop Animations */
+        .group:hover .group-hover-effect {
+            transform: translateY(-0.5rem);
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes text-glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.1); }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 0 25px rgba(255, 255, 255, 0.2); }
+        }
+
+        .glow-animation {
+            animation: text-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) skewX(-20deg); }
+            100% { transform: translateX(200%) skewX(-20deg); }
+        }
+
+        .card-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translateX(-100%) skewX(-20deg);
+            transition: transform 0.5s ease;
+        }
+
+        .card-shine:hover::after {
+            animation: shine 1.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="min-h-screen flex flex-col">
+        
+<header class="w-full bg-black py-4 px-6 md:px-12 fixed top-0 z-50">
+    <nav class="flex justify-between items-center max-w-7xl mx-auto">
+        <div class="flex items-center space-x-8">
+            <a href="#about-alex" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                About
+                <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a href="#shani-gallery" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                Exhibition
+                <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a href="#featured-products" class="relative text-xs uppercase text-yellow-400 hover:text-white focus:outline-none group">
+                Products
+                <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-yellow-400 group-hover:w-full transition-all duration-300"></span>
+            </a>
+        </div>
+        <div class="text-xl font-bold text-white text-anton tracking-wide">
+            SHANI
+        </div>
+        <div class="flex items-center space-x-8">
+            <a href="#" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                Blog
+                <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a href="#contact-now" class="relative text-xs uppercase text-gray-400 hover:text-white focus:outline-none group">
+                Contact
+                <span class="absolute left-0 bottom-0 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>
+            </a>
+            
+            <button id="music-button" class="relative text-white w-8 h-8 rounded-full hover:text-yellow-400 focus:outline-none transition-colors duration-200 overflow-hidden flex items-center justify-center">
+                <img id="visualizer-gif" src="img/giphy.gif" alt="Audio Visualizer" class="absolute w-full h-full object-cover transition-opacity duration-300 opacity-0 z-0">
+                
+                <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute w-5 h-5 z-10 transition-opacity duration-300">
+                    <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 20.32c-1.25.687-2.779-.235-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                </svg>
+                <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute w-5 h-5 z-10 transition-opacity duration-300 opacity-0">
+                    <path fill-rule="evenodd" d="M2.25 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-.75.75H3a.75.75 0 0 1-.75-.75v-3.5ZM9 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-.75.75H9.75a.75.75 0 0 1-.75-.75v-3.5ZM15.75 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1-.75-.75v-3.5Z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+</header>
+<audio id="background-music" loop>
+    <source src="song/bgsong.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<main class="flex-grow pt-[5rem]">
+    <section id="hero" class="relative bg-black text-white min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden bg-cover bg-center" style="background-image: url('img/Screenshot 2025-09-20 at 10.34.20 PM.jpg');">
+        
+        <div class="absolute inset-0 z-0 bg-black opacity-40"></div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-8 lg:gap-8 items-center justify-items-center relative">
+
+                <div class="lg:col-span-1 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
+                    <div class="relative w-[250px] h-[350px] sm:w-[300px] sm:h-[400px] lg:w-[250px] lg:h-[350px] overflow-hidden rounded-lg mb-8 lg:mb-0 transform -translate-x-8 lg:-translate-x-0 lg:ml-16 scroll-fade-in group hover:scale-105 transition-all duration-300">
+                        <img src="img/p1.jpeg" alt="Painter working on a canvas" class="absolute inset-0 w-full h-full object-cover shadow-lg">
+                    </div>
+                    <div class="flex space-x-4 mt-4 -translate-x-8 lg:-translate-x-0 lg:ml-16">
+                        <div class="w-24 h-24 rounded-lg overflow-hidden shadow-md scroll-fade-in delay-200 group hover:scale-105 transition-all duration-300">
+                            <img src="img/img4.jpeg" alt="Abstract blue art" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-24 h-24 rounded-lg overflow-hidden shadow-md scroll-fade-in delay-300 group hover:scale-105 transition-all duration-300">
+                            <img src="img/img8.jpeg" alt="Abstract yellow art" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-xs uppercase max-w-[200px] mt-8 leading-tight text-center lg:text-left -translate-x-8 lg:-translate-x-0 lg:ml-16 scroll-fade-in delay-400">
+                        The excellence of my art shown to people every art for every soul
+                    </p>
+                </div>
+
+                <div class="lg:col-span-1 flex flex-col justify-center items-center text-center z-10 order-1 lg:order-2">
+                    <div class="relative">
+                        <h1 class="text-[5rem] md:text-[8rem] lg:text-[10rem] leading-none text-anton tracking-tightest scroll-scale-in glow-animation">
+                            <span class="block relative z-10">
+                                <span class="glass-text">W</span>onderfull<span class="glass-text">y</span>
+                            </span>
+                            <span class="block relative z-10">Whole</span>
+                        </h1>
+                        <div class="flex justify-center mt-4 space-x-2 scroll-fade-in delay-200">
+                            <span class="text-yellow-400 text-3xl">★</span>
+                            <span class="text-yellow-400 text-3xl">★</span>
+                            <span class="text-yellow-400 text-3xl">★</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-1 flex flex-col items-center lg:items-end text-center lg:text-right order-3 relative">
+                    <div class="bg-gray-800 text-white text-xs uppercase px-3 py-1 rounded-full inline-flex items-center space-x-1 mb-4 lg:mb-8 self-center lg:self-end mr-0 lg:mr-16 scroll-fade-in">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3 text-yellow-400">
+                            <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.068.318A9.854 9.854 0 0 0 2 10c0 2.413.663 4.671 1.82 6.645A9.854 9.854 0 0 0 10 18c1.716 0 3.408-.106 5.068-.318A9.854 9.854 0 0 0 18 10c0-2.413-.663-4.671-1.82-6.645A9.854 9.854 0 0 0 10 2Zm-2.07 7.73l-1.35 1.35a.75.75 0 0 0 1.06 1.06l1.22-1.22 1.22 1.22a.75.75 0 1 0 1.06-1.06l-1.35-1.35 1.35-1.35a.75.75 0 0 0-1.06-1.06L10 8.61l-1.22-1.22a.75.75 0 0 0-1.06 1.06l1.35 1.35Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Painter Artist</span>
+                        <span class="text-gray-500">+</span>
+                        <span>Painter Artist</span>
+                        <span class="text-gray-500">+</span>
+                        <span>Painte</span>
+                    </div>
+                    <div class="relative w-[250px] h-[350px] sm:w-[300px] sm:h-[400px] lg:w-[250px] lg:h-[350px] overflow-hidden rounded-lg transform translate-x-8 lg:-translate-x-0 lg:mr-16 scroll-fade-in delay-200 group hover:scale-105 transition-all duration-300">
+                        <img src="img/p2.png" alt="Person holding green plants" class="absolute inset-0 w-full h-full object-cover shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+         <section id="about-alex" class="bg-gradient-to-b from-black to-gray-900 py-16 md:py-24 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center scroll-fade-in">
+            <div class="flex flex-col space-y-4">
+                <h2 class="text-4xl md:text-5xl text-anton text-yellow-400">About SHANI</h2>
+                <p class="text-gray-300 leading-relaxed max-w-lg">
+                    AN ARTIST'S OUTLOOK ON LIFE HAS A MILLION DIMENSIONS, AN ARTIST'S OUTLOOK ON LIFE HAS A MILLION DIMENSIONS, THERE'S ART INSIDE YOU
+                </p>
+            </div>
+        </div>
+        
+        <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl border border-gray-700 mt-12 md:mt-16 scroll-scale-in card-shine">
+            <img src="img/bg2.jpeg" alt="Alex Pimpar in a video thumbnail" class="w-full h-full object-cover">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <button class="flex items-center justify-center w-24 h-24 rounded-full bg-white text-black shadow-lg hover:scale-105 transition-transform focus:outline-none focus:ring-4 focus:ring-white/50" aria-label="Play video">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
+                        <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 20.32c-1.25.687-2.779-.235-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+            
+            <section id="shani-gallery" class="bg-gray-900 py-16 md:py-24 border-t border-gray-800">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <h2 class="text-4xl md:text-5xl text-anton text-yellow-400 mb-12 text-center lg:text-left scroll-fade-in">Shani Gallery</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                        
+                        <div class="col-span-2 row-span-2 bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 aspect-[1/1] sm:aspect-[2/2] md:aspect-[2/2] scroll-fade-in card-shine">
+                            <img src="img/img1.jpeg" alt="Large abstract yellow and black swirl painting" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 aspect-[1/1] scroll-fade-in delay-100 card-shine">
+                            <img src="img/img2.jpeg" alt="Abstract yellow wave patterns" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 aspect-[1/1] scroll-fade-in delay-200 card-shine">
+                            <img src="img/img3.jpeg" alt="Abstract blue depths painting" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 aspect-[1/1] scroll-fade-in delay-300 card-shine">
+                            <img src="img/img4.jpeg" alt="Abstract blue globe with texture" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 aspect-[1/1] scroll-fade-in delay-400 card-shine">
+                            <img src="img/img5.jpeg" alt="Textured yellow art" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="bg-yellow-400 flex items-center justify-center rounded-lg shadow-lg aspect-[1/1] text-black font-bold text-lg uppercase tracking-wider hover:bg-yellow-300 transition-colors cursor-pointer border border-yellow-500 scroll-scale-in delay-500">
+                            <a href="#" class="focus:outline-none focus:ring-4 focus:ring-yellow-500/50 p-4">VIEW ALL</a>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 aspect-[1/1] scroll-fade-in delay-100 card-shine">
+                            <img src="img/img6.jpeg" alt="Transparent sphere art" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 aspect-[1/1] scroll-fade-in delay-200 card-shine">
+                            <img src="img/img7.jpeg" alt="Shattered yellow pattern art" class="w-full h-full object-cover">
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </section>
+            <section id="exhibition-schedule" class="bg-black py-16 md:py-24 border-t border-gray-800">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 scroll-fade-in">
+                        <h2 class="text-4xl md:text-5xl text-anton text-yellow-400 mb-4 lg:mb-0">Workshops</h2>
+                        <p class="text-gray-300 max-w-lg lg:text-right">
+                            Discover upcoming workshops focused on the latest work shoes in the UK, crafted for professionals who demand both style and durability.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        
+                        <a href="#" class="block bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-gray-800 group hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50 scroll-slide-left card-shine">
+                            <div class="h-48 overflow-hidden">
+                                <img src="img/wp1.png" alt="Men's work shoes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-xl font-bold text-white mb-2">The Creative Canvas</h3>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="block bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-gray-800 group hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50 scroll-slide-left delay-100 card-shine">
+                            <div class="h-48 overflow-hidden">
+                                <img src="img/wp2.png" alt="Women's work shoes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-xl font-bold text-white mb-2">Portraits in Oil</h3>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="block bg-yellow-400 rounded-lg overflow-hidden shadow-lg border border-yellow-500 flex flex-col justify-center items-center text-black font-anton text-4xl group hover:bg-yellow-300 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50 scroll-scale-in delay-200">
+                            <div class="w-full h-48 flex items-center justify-center p-4">
+                                <span class="text-5xl md:text-4xl leading-none text-center">BOOK<br>WORKSHOP</span>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="block bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-gray-800 group hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-4 focus:ring-yellow-500/50 scroll-slide-right delay-300 card-shine">
+                            <div class="h-48 overflow-hidden">
+                                <img src="img/wp3.png" alt="Safety boots" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-xl font-bold text-white mb-2">Landscape in Acrylics</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="featured-products" class="bg-gray-900 py-16 md:py-24 border-t border-gray-800">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 scroll-fade-in">
+                        <h2 class="text-4xl md:text-5xl text-anton text-yellow-400 mb-4 lg:mb-0">Featured Products</h2>
+                        <a href="products.html" class="inline-flex items-center bg-yellow-400 text-black py-2 px-6 rounded-full font-bold uppercase tracking-wider hover:bg-yellow-300 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50 scroll-fade-in delay-100">
+                            See More Products
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 ml-2">
+                                <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.47a.75.75 0 0 1 1.04-1.04l5.25 5.25a.75.75 0 0 1 0 1.06l-5.25 5.25a.75.75 0 1 1-1.04-1.04l4.158-4.158H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        
+                        <a href="product-detail.html" class="block bg-black rounded-lg overflow-hidden shadow-lg border border-gray-800 group hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50 scroll-slide-left card-shine">
+                            <div class="h-48 overflow-hidden">
+                                <img src="img/img2.jpeg" alt="Product Name 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="text-sm font-semibold text-white mb-1 group-hover:text-yellow-400 transition-colors">Abstract Waves Print</h3>
+                                <p class="text-xs text-gray-400">Limited Edition Canvas</p>
+                                <p class="text-lg font-bold text-yellow-400 mt-2">£79.99</p>
+                            </div>
+                        </a>
+                        
+                        <a href="product-detail.html" class="block bg-black rounded-lg overflow-hidden shadow-lg border border-gray-800 group hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50 scroll-slide-left delay-100 card-shine">
+                            <div class="h-48 overflow-hidden">
+                                <img src="img/img5.jpeg" alt="Product Name 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="text-sm font-semibold text-white mb-1 group-hover:text-yellow-400 transition-colors">Textured Sun Coaster</h3>
+                                <p class="text-xs text-gray-400">Hand-made Resin</p>
+                                <p class="text-lg font-bold text-yellow-400 mt-2">£19.99</p>
+                            </div>
+                        </a>
+                        
+                        <a href="product-detail.html" class="block bg-black rounded-lg overflow-hidden shadow-lg border border-gray-800 group hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50 scroll-slide-right delay-200 card-shine">
+                            <div class="h-48 overflow-hidden">
+                                <img src="img/img7.jpeg" alt="Product Name 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="text-sm font-semibold text-white mb-1 group-hover:text-yellow-400 transition-colors">Shattered Mirror Print</h3>
+                                <p class="text-xs text-gray-400">Framed Digital Art</p>
+                                <p class="text-lg font-bold text-yellow-400 mt-2">£49.99</p>
+                            </div>
+                        </a>
+                        
+                        <a href="product-detail.html" class="block bg-black rounded-lg overflow-hidden shadow-lg border border-gray-800 group hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50 scroll-slide-right delay-300 card-shine">
+                            <div class="h-48 overflow-hidden">
+                                <img src="img/img3.jpeg" alt="Product Name 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="text-sm font-semibold text-white mb-1 group-hover:text-yellow-400 transition-colors">Blue Depths Mug</h3>
+                                <p class="text-xs text-gray-400">Ceramic Collectible</p>
+                                <p class="text-lg font-bold text-yellow-400 mt-2">£24.99</p>
+                            </div>
+                        </a>
+                        
+                    </div>
+                </div>
+            </section>
+            <section id="pricing-section" class="bg-black py-16 md:py-24 border-t border-gray-800">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="text-center lg:text-left scroll-fade-in">
+                            <h2 class="text-4xl md:text-5xl text-anton text-yellow-400 mb-4">Portraits</h2>
+                            <p class="text-gray-300 max-w-lg mb-8 leading-relaxed">
+                                Commission a one-of-a-kind, fine art portrait of your beloved pet. Each piece is meticulously hand-drawn to capture their unique personality.
+                            </p>
+                            
+                            <div class="bg-gray-900 p-6 md:p-8 rounded-lg shadow-lg border border-gray-800 mb-8 max-w-lg mx-auto lg:mx-0">
+                                <p class="text-lg font-semibold text-white mb-4">Pricing*</p>
+                                <ul class="list-none space-y-3 text-gray-300 text-sm">
+                                    <li class="flex justify-between items-center border-b border-gray-700 pb-2 last:border-b-0 last:pb-0">
+                                        <span>A5 - from</span>
+                                        <span class="text-lg font-bold text-yellow-400">£190*</span>
+                                    </li>
+                                    <li class="flex justify-between items-center border-b border-gray-700 pb-2 last:border-b-0 last:pb-0">
+                                        <span>A4 - from</span>
+                                        <span class="text-lg font-bold text-yellow-400">£240*</span>
+                                    </li>
+                                    <li class="flex justify-between items-center border-b border-gray-700 pb-2 last:border-b-0 last:pb-0">
+                                        <span>A3 - from</span>
+                                        <span class="text-lg font-bold text-yellow-400">£340*</span>
+                                    </li>
+                                </ul>
+                                <p class="text-xs text-gray-500 mt-4">*Based on one subject</p>
+                            </div>
+                            
+                            <p class="text-sm text-gray-300 leading-relaxed mb-6 max-w-lg mx-auto lg:mx-0">
+                                **Includes UK delivery.** International shipping is also available via enquiry. Each colored pencil portrait is mounted, protected, and packaged with a Certificate of Authenticity and a Care Guide.
+                            </p>
+                            
+                            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                                <a href="#" class="inline-flex items-center justify-center bg-yellow-400 text-black py-3 px-8 rounded-full font-bold uppercase tracking-wider hover:bg-yellow-300 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-500/50">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                                        <path fill-rule="evenodd" d="M12.315 2.476a.75.75 0 01.55.16L16.205 4.96a.75.75 0 01.307.513l.02.399a.75.75 0 01-.223.514L14.28 7.37a.75.75 0 01-1.06 0L12 5.53l-1.22 1.84a.75.75 0 01-1.06 0L8.092 6.38a.75.75 0 01-.223-.514l.02-.399a.75.75 0 01.307-.513l3.34-2.324a.75.75 0 01.55-.16zM13.593 12a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm4.004-1.256a.75.75 0 01-.082 1.054l-4.75 4.5a.75.75 0 01-1.06 0L5.75 11.8a.75.75 0 011.06-1.06l3.52 3.327 4.22-4.001a.75.75 0 011.054.082z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0-1.5a7.5 7.5 0 110-15 7.5 7.5 0 010 15z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Visit Instagram Profile</span>
+                                </a>
+                                <a href="https://wa.me/yourphonenumber" class="inline-flex items-center justify-center bg-gray-700 text-white py-3 px-8 rounded-full font-bold uppercase tracking-wider hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-gray-500/50">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" class="w-5 h-5 mr-2">
+                                        <path d="M380.9 97.4C339.4 56.7 283.5 32 223.8 32c-122.9 0-223.8 100.3-223.8 224 0 39.5 10.9 77.9 31.7 112.5L25.9 448l122.9-39.2c35.6 19.4 75.9 30.1 118.5 30.1l.1-.2c122.9 0 223.8-100.3 223.8-224 0-51.7-18.7-101.4-53.5-138.8zM223.8 416h-.1c-38.3 0-75.4-10.1-108.1-29.1L82.9 390.8 45.4 492l104.9-33.5c31.3 17.1 66.8 26.2 104.4 26.2 101.9 0 185.7-83.6 185.7-186.7C435.7 131.5 351.9 48 250.8 48c-49.8 0-97.1 19.3-132.6 53.6-35.4 34.3-54.7 80.6-54.7 129.5 0 101.9 83.8 185.7 185.7 185.7zM331.8 253.9c-4.4-2.2-26.3-13-30.4-14.5-4.1-1.5-7.1-2.2-10.1 2.2-3 4.4-11.5 14.5-14.1 17.4-2.6 3-5.2 3.3-9.6 1.1s-14.1-5.2-26.8-16.6c-9.9-8.5-16.6-18.7-18.7-22.3-2.2-4.1-.2-6.4 1.9-8.5 1.9-1.9 4.4-5.2 6.6-7.8 2.2-2.6 2.9-4.4 4.4-7.4 1.5-3 0-5.6-1.5-8.5-1.5-2.6-13.3-31.9-18.2-43.8-4.9-11.5-9.9-9.9-14.1-9.9-4.1 0-8.9-.6-13.6-.6s-12.7 2.2-19.4 11.2c-6.6 8.9-25.3 24.5-25.3 59.5s26 68.9 29.6 73.4c3.7 4.4 51.5 83.7 125.1 113.8 17.6 7.1 31.6 11.3 42.5 14.5 17.1 5.2 32.5 4.4 45-2.6 12.4-7.1 13.9-26.3 13.9-48.9 0-21.5-8.3-33.4-14.1-43.8z"/>
+                                    </svg>
+                                    <span>Connect through WhatsApp</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 lg:ml-8 mt-8 lg:mt-0 scroll-scale-in delay-200">
+                            <div class="rounded-lg overflow-hidden shadow-lg border border-gray-800 aspect-[4/3]">
+                                <img src="img/img8.jpeg" alt="A detailed colored pencil portrait of a dog" class="w-full h-full object-cover">
+                            </div>
+                            <div class="rounded-lg overflow-hidden shadow-lg border border-gray-800 aspect-[4/3]">
+                                <img src="img/img4.jpeg" alt="A detailed colored pencil portrait of a dog" class="w-full h-full object-cover">
+                            </div>
+                            <div class="rounded-lg overflow-hidden shadow-lg border border-gray-800 aspect-[4/3] sm:col-span-2">
+                                <img src="img/img11.jpeg" alt="A detailed colored pencil portrait of a dog" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+<section id="contact-now" class="bg-gray-900 py-16 md:py-24 border-t border-gray-800 relative">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between relative">
+        
+        <div class="absolute -bottom-8 left-0 hidden md:block w-32 h-32 rounded-lg overflow-hidden shadow-lg border border-gray-700 scroll-fade-in group hover:scale-105 transition-all duration-300">
+            <img src="img/img10.jpeg" alt="Shani Piutre profile picture" class="w-full h-full object-cover">
+        </div>
+        
+        <div class="flex flex-col items-center md:items-start text-center md:text-left mb-8 md:mb-0 ml-0 md:ml-32 -mt-12 md:-mt-24 z-10 scroll-slide-right">
+            <h2 class="text-[6rem] md:text-[8rem] lg:text-[10rem] leading-none text-anton text-white">
+                Contact
+            </h2>
+            <div class="flex items-center space-x-4">
+                <h2 class="text-[6rem] md:text-[8rem] lg:text-[10rem] leading-none text-anton text-white">
+                    Now
+                </h2>
+                
+                <a href="contact.html"><button class="relative w-28 h-28 md:w-36 md:h-36 rounded-full bg-yellow-400 flex items-center justify-center transform hover:scale-105 transition-transform duration-200 shrink-0">
+                    <div class="absolute inset-0 flex items-center justify-center animate-[spin_10s_linear_infinite]">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <defs>
+                                <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/>
+                            </defs>
+                            <text class="text-[6px] font-bold uppercase tracking-widest fill-black">
+                                <textPath xlink:href="#circlePath">
+                                    Contact Now • Contact Now •  Contact Now • Contact Now •
+                                </textPath>
+                            </text>
+                        </svg>
+                    </div>
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-16 h-16 transform rotate-[30deg] z-10 text-black">
+           <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
+                    </svg>
+                </button></a>
+            </div>
+        </div>
+
+        
+        <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-xl border border-gray-700 shrink-0 scroll-scale-in group hover:scale-105 transition-all duration-300">
+            <img src="img/profilpicinst.jpg" alt="Artist painting on a canvas" class="w-full h-full object-cover">
+        </div>
+    </div>
+</section>
+
+        </main>
+
+        
+        <footer class="w-full bg-black py-8 px-6 md:px-12 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 space-y-4 md:space-y-0">
+                <p>&copy; 2024 Marvelous Enough. All Rights Reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white focus:outline-none focus:ring-2 focus:ring-yellow-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-white focus:outline-none focus:ring-2 focus:ring-yellow-400">Terms of Service</a>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-400">Made with</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-red-500">
+                        <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 9.192c0-1.488.654-2.933 1.824-4.024 1.17-.993 2.75-1.543 4.36-1.543 1.152 0 2.323.386 3.296 1.188.346.276.683.58.995.908.313-.328.65-.632.996-.908 1.054-.842 2.063-1.188 3.295-1.188 1.609 0 3.19.55 4.359 1.543 1.171 1.091 1.825 2.536 1.825 4.024 0 2.982-2.438 6.178-4.882 8.05-.902.7-1.832 1.36-2.75 1.933-.157.1-.31.195-.453.28-.012.007-.024.015-.037.022-1.29 1.405-2.395 1.517-2.454 1.554-.018.01-.035.027-.057.042A2.25 2.25 0 0 1 12 21.75c-.233 0-.465-.097-.622-.257Z" />
+                    </svg>
+                </div>
+            </div>
+        </footer>
+    </div>
+     
+<script>
+    const music = document.getElementById('background-music');
+    const musicButton = document.getElementById('music-button');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    const visualizerGif = document.getElementById('visualizer-gif');
+
+    const toggleIcons = () => {
+        if (music.paused) {
+            playIcon.classList.remove('opacity-0');
+            pauseIcon.classList.add('opacity-0');
+            visualizerGif.classList.add('opacity-0');
+        } else {
+            playIcon.classList.add('opacity-0');
+            pauseIcon.classList.remove('opacity-0');
+            visualizerGif.classList.remove('opacity-0');
+        }
+    };
+
+    musicButton.addEventListener('click', () => {
+        if (music.paused) {
+            music.play();
+        } else {
+            music.pause();
+        }
+    });
+
+    music.addEventListener('play', toggleIcons);
+    music.addEventListener('pause', toggleIcons);
+
+    document.addEventListener('DOMContentLoaded', toggleIcons);
+</script>
+    
+<script>
+    // Scroll animation with Intersection Observer
+    document.addEventListener('DOMContentLoaded', function() {
+        const animatedElements = document.querySelectorAll(
+            '.scroll-fade-in, .scroll-scale-in, .scroll-slide-left, .scroll-slide-right'
+        );
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        });
+        
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+    });
+</script>
+
+</body>
+</html>
